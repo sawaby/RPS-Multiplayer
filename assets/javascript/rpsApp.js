@@ -25,6 +25,7 @@ $(document).ready(function(){
 	var user2;
 	// keep track of connections
 	var connect = 0;
+	var counter = 0;
 	
   	var connectedRef = db.ref(".info/connected");
 	console.log(connectedRef);
@@ -52,41 +53,49 @@ $(document).ready(function(){
 	// giving user name from input
 	$("#add-user").on("click", function(event){
 		event.preventDefault();
-		//db.ref("/players").on('value', function(snapshot){
-			// var svArr = Object.keys(snapshot.val());
-   //    		var firstUserKey = svArr[0];
-   //    		var secondUserKey = svArr[1];
-   console.log(db.ref().hasChild("players"));
+		db.ref().once('value', function(snapshot){
+			
+   			console.log(snapshot.val());
    			
-			if(db.ref().hasChild("players")){
+			if(snapshot.val() == null){
 				user1 = $("#start").val().trim();
-				db.ref("/players").push({
+				$("#start-col").remove();
+				db.ref().push({
 					user1:{
 					name: user1,
 					looses: 0,
-					wins: 0}
-					
+					wins: 0
+				}
 				});
-
+				counter++;
+				
 			}else{
 				user2 = $("#start").val().trim();
-				db.ref("/players").push({
-					user2:{name: user2,
+				$("#start-col").remove();
+				db.ref().push({
+					user2:{
+					name: user2,
 					looses: 0,
-					wins: 0}
+					wins: 0,
 					
+					}
 			
 				});
-				return false;
-			}
+				counter++;
+				
 
+			}
+				// var svArr = Object.keys(snapshot.val());
+    //    			var firstUserKey = svArr[0];
+   	//     		var secondUserKey = svArr[1];
+				// console.log(firstUserKey.name);
 
 		// push user  info to firebase db
 		// db.ref("/players").push({
 		// 	user1: user1,
 		// 	user2: user2
 		// });
-	//});
+	});
 		
 		
 
@@ -95,30 +104,38 @@ $(document).ready(function(){
 		
 		
 	});
-	
+	// $(window).load(function(){});
 	// retreiving data from database
-	db.ref("/players").on("child_added", function(snapshot){
-		var sv = snapshot.val();
+	db.ref().on("child_added", function(childSnapshot){
+		var sv = childSnapshot.val();
 
 		// Getting an array of each key In the snapshot object
       	var svArr = Object.keys(sv);
       	var firstUserKey = svArr[0];
-      	var secondUserKey = svArr[1];
+      	console.log(firstUserKey);
+      	var secondUserKey = svArr[svArr.length-1];
+      	console.log(secondUserKey);
 
 
-		console.log(firstUserKey);
+		console.log(sv[firstUserKey].name);
 		$("#players").show();
 
-		if(firstUserKey){
+		if(firstUserKey === 'user1'){
   			// players
-  			$("#round").append("<p>Hi "+sv.user1+" you are player 1.</p>");
+  			$("#round").html("<p>Hi "+user1+" you are player 1.</p>");
+  			$("#player1-choice").html("<p>"+sv[firstUserKey].name+"</p>");
+			$("#player1").html("<p>"+sv[firstUserKey].name+"</p>");
+  		}else if(secondUserKey==='user2'){
+  			$("#round").html("<p>Hi "+user2+" you are player 2.</p>");
+  			$("#player2-choice").html("<p>"+sv[secondUserKey].name+"</p>");
+			$("#player2").html("<p>"+sv[secondUserKey].name+"</p>");
   		}
-		$("#player1-choice").html("<p>"+sv.user1+"</p>");
-		$("#player1").html("<p>"+sv.user1+"</p>");
+		
 
 
 	});
-	var ref = firebase.database().ref("/players");
+	var ref = firebase.database().ref();
+	
 	ref.onDisconnect().remove();
 });
 
