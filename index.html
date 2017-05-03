@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RPS Multiplayer</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+ 	 <meta name="viewport" content="width=device-width, initial-scale=1">
+ 	 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+	<div class="container">
+	<!-- head -->
+		<div class="jumbotron">
+			<h1>Rock Paper Scissors Multiplayer</h1>
+		</div>
+		<div class="row" >
+			<div class="col-md-4 col-md-offset-4" id="start-col">
+				<!-- input start -->
+				<div class="input-group">
+			  		<input type="text" class="form-control" id="start">
+			  		<span class="input-group-addon" id="add-user">Start</span>
+				</div>
+			</div>
+			<div class="col-md-8 col-md-offset-2" id="players">
+				<!-- player and round display -->
+				<div class="col-md-2" id="player1">
+					<p>Player-1</p>
+				</div>
+				<!-- for design -->
+				<div class="col-md-1"></div>
+				<!-- round and turn display -->
+				<div class="col-md-6" id="round">
+					
+				</div>
+				<!-- for design -->
+				<div class="col-md-1"></div>
+				<div class="col-md-2" id="player2">
+					<p>Player-2</p>
+				</div>
+			</div>
+		
+		<!-- end of row for players -->
+		</div>
+
+
+		<!-- play choices part -->
+		<div class="row" id="players-choices">
+			<!-- player 1 choices -->
+			<div class="col-md-4" id="player1-choice">
+				
+			</div>
+			<!-- result -->
+			<div class="col-md-4" id="resutl">
+				
+			</div>
+			<!-- player 2 choices -->
+			<div class="col-md-4" id="player2-choice">
+				
+			</div>
+		</div><!--end of players choices part-->
+
+		<!-- choices player pick from -->
+		<div class="row">
+			<div class="col-md-12">
+				<img src="assets/images/rock.png" id="rock">
+				<img src="assets/images/paper.jpg" id="papper">
+				<img src="assets/images/scissors.png" id="scissors">
+			</div>
+		</div>
+		
+		<!-- chat -->
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<!-- displaye messages box -->
+				<div id="box">
+				
+				</div>
+				<!-- input message -->
+				<div class="input-group">
+			  		<input type="text" class="form-control">
+			  		<span class="input-group-addon" id="basic-addon2">Send</span>
+				</div>
+			</div>
+			<!-- end of displaye messages column -->
+		</div>
+		<!-- end of chat -->
+	</div>
+
+
+	<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script type="text/javascript" src="assets/javascript/rpsApp.js"></script>
+</body>
+</html>
