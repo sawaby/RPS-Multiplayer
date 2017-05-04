@@ -26,6 +26,7 @@ $(document).ready(function(){
 	// keep track of connections
 	var connect = 0;
 	var counter = 0;
+	var currentUser;
 	
   	var connectedRef = db.ref(".info/connected");
 	console.log(connectedRef);
@@ -59,6 +60,7 @@ $(document).ready(function(){
    			
 			if(snapshot.val() == null){
 				user1 = $("#start").val().trim();
+				 currentUser = user1;
 				$("#start-col").remove();
 				db.ref().push({
 					user1:{
@@ -68,8 +70,14 @@ $(document).ready(function(){
 				}
 				});
 				counter++;
+				$("#players").show();
+	  			// players
+	  			$("#round").html("<p>Hi "+currentUser+" you are player 1.</p>");
+	  			$("#player1-choice").html("<p>"+user1+"</p>");
+				$("#player1").html("<p>"+user1+"</p>");
 				
 			}else{
+
 				user2 = $("#start").val().trim();
 				$("#start-col").remove();
 				db.ref().push({
@@ -82,9 +90,27 @@ $(document).ready(function(){
 			
 				});
 				counter++;
+				$("#players").show();
+	  			$("#round").html("<p>Hi "+user2+" you are player 2.</p>");
+	  			$("#player2-choice").html("<p>"+user2+"</p>");
+				$("#player2").html("<p>"+user2+"</p>");
 				
 
 			}
+			console.log(user1);
+			// if(!user1 == null){
+			// 	$("#players").show();
+	  // 			// players
+	  // 			$("#round").html("<p>Hi "+currentUser+" you are player 1.</p>");
+	  // 			$("#player1-choice").html("<p>"+user1+"</p>");
+			// 	$("#player1").html("<p>"+user1+"</p>");
+	  // 		}else if(!user2 == null){
+	  // 			$("#players").show();
+	  // 			$("#round").html("<p>Hi "+user2+" you are player 2.</p>");
+	  // 			$("#player2-choice").html("<p>"+user2+"</p>");
+			// 	$("#player2").html("<p>"+user2+"</p>");
+	  // 		}
+		
 				// var svArr = Object.keys(snapshot.val());
     //    			var firstUserKey = svArr[0];
    	//     		var secondUserKey = svArr[1];
@@ -99,7 +125,9 @@ $(document).ready(function(){
 		
 		
 
-		
+	$("#rock").on('click', function(){
+
+	});
 
 		
 		
@@ -118,19 +146,9 @@ $(document).ready(function(){
 
 
 		console.log(sv[firstUserKey].name);
-		$("#players").show();
-
-		if(firstUserKey === 'user1'){
-  			// players
-  			$("#round").html("<p>Hi "+user1+" you are player 1.</p>");
-  			$("#player1-choice").html("<p>"+sv[firstUserKey].name+"</p>");
-			$("#player1").html("<p>"+sv[firstUserKey].name+"</p>");
-  		}else if(secondUserKey==='user2'){
-  			$("#round").html("<p>Hi "+user2+" you are player 2.</p>");
-  			$("#player2-choice").html("<p>"+sv[secondUserKey].name+"</p>");
-			$("#player2").html("<p>"+sv[secondUserKey].name+"</p>");
-  		}
 		
+
+
 
 
 	});
